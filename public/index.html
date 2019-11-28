@@ -13,23 +13,61 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
-
     </script>
     <script src="AudioEnergy.js"></script>
     <script src="sketch.js"></script>
   </head>
   <body>
-  <!-- iframe instead of seperate window -->
+    <input
+      id="sliderOne"
+      oninput="sliderOneChange(sliderOne)"
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+    />
+    <input
+      id="sliderTwo"
+      oninput="sliderTwoChange(sliderTwo)"
+      type="range"
+      min="1"
+      max="2"
+      step="0.01"
+    />
+    <input
+      id="sliderThree"
+      oninput="sliderThreeChange(sliderThree)"
+      type="range"
+      min="2"
+      max="3"
+      step="0.01"
+    />
+    <button type="button">button</button>
+    <button type="button">button</button>
+
     <script>
-        let childWindow;
-        window.addEventListener("click", () => {
-          childWindow = window.open("controller.html");
-        });
-        setInterval(() => {
-          if (childWindow) {
-            console.log("Current value", childWindow.sliderValue);
-          }
-        }, 250);
+    const sliderOne = window.sliderOne;
+
+    const sliderTwo = window.sliderTwo;
+
+    const sliderThree = window.sliderThree;
+
+    // when the slider is moved
+    // function handleChange(slider) {
+    //   window.sliderValue = slider.value;
+    //   console.log(window.sliderValue);
+    //   return window.sliderValue
+    // }
+    // // Opens new window when current window is clicked
+    //     let childWindow;
+    //     window.addEventListener("click", () => {
+    //       childWindow = window.open("controller.html");
+    //     });
+    //     setInterval(() => {
+    //       if (childWindow) {
+    //         console.log("Current value", childWindow.sliderValue);
+    //       }
+    //     }, 250);
       </script>
     </body>
 </html>

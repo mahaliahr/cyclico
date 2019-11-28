@@ -1,14 +1,12 @@
-//const Hydra = require('hydra-synth');
-const bauhausBg = ["#212121"]
+const bauhausBg = ["#80212121", "#FFEAEAEA"]
 // const bauhausBg = ["#80BEBCB4", "#80DFD9CA", "#801E2019"];
 //rgb 190,188,180, 223,217,202, 30,32,25
+// new colours "#80212121" "#FFEAEAEA"
 let bgColor;
 let xoff = 0.0;
 let analyser;
 let mic;
-
 let playing = true;
-
 // Create a new canvas to the browser size
 async function setup() {
   if (mic) {
@@ -26,26 +24,42 @@ async function setup() {
     mic.connect(analyser);
     mic.connect(Tone.Master);
   }
-
+  console.log(sliderOne.value);
+  console.log(sliderTwo);
+  console.log(sliderThree);
+ // Socket Connection Setup
   socket = io.connect('http://localhost:3000');
   // socket.on('mouse', newDrawing);
   createCanvas(windowWidth, windowHeight);
   bgColor = random(bauhausBg);
 }
+
 // On window resize, update the canvas
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
- // newDrawing();
- pattern(mouseX);
-
+ pattern(window.sliderOneValue *100);
 }
 
-// function newDrawing(data) {
-//     pattern(mouseX / 0.1);
-// }
+function sliderOneChange(slider) {
+  window.sliderOneValue = sliderOne.value;
+  //console.log(window.sliderValue);
+  return window.sliderValue
+}
+
+function sliderTwoChange(slider) {
+  window.sliderTwoValue = sliderTwo.value;
+  console.log(window.sliderValue);
+  return window.sliderValue
+}
+
+function sliderThreeChange(slider) {
+  window.sliderThreeValue = sliderThree.value;
+  console.log(window.sliderValue);
+  return window.sliderValue
+}
 
 function mouseMoved() {
 // SET INTERVAL INSTEAD OF CONSISTENTLY SENDING MOUSE DATA
@@ -53,7 +67,6 @@ function mouseMoved() {
     x: mouseX,
     y: mouseY
   }
-
   return false
 }
 
@@ -83,7 +96,6 @@ function pattern(thickness) {
    const anim = v * 1 + 1;
 
    background(bgColor);
-   //console.log(bgColor);
    blendMode(DIFFERENCE);
 
    drawEachTile(
