@@ -45,22 +45,23 @@ function draw() {
   // pattern parameters being controlled: thickness, size of circles,
  pattern(window.sliderOneValue * 10, window.sliderTwoValue / 2);
 }
+
 // These control updating of default value of slider, based on user input
 function sliderOneChange(slider) {
   window.sliderOneValue = sliderOne.value;
-  //console.log(window.sliderOneValue);
+  console.log(window.sliderOneValue);
   return window.sliderValue
 }
 
 function sliderTwoChange(slider) {
   window.sliderTwoValue = sliderTwo.value;
-  //console.log(window.sliderTwoValue);
+  console.log(window.sliderTwoValue);
   return window.sliderValue
 }
 
 function sliderThreeChange(slider) {
   window.sliderThreeValue = sliderThree.value;
-  //console.log(window.sliderValue);
+  console.log(window.sliderThreeValue);
   return window.sliderValue
 }
 
@@ -72,7 +73,6 @@ if (buttonPress) {
 
 }
 }
-
 // function mouseMoved() {
 //   var data = {
 //     x: mouseX,
@@ -86,13 +86,13 @@ function pattern(thickness, diameter = 0.25) {
  if (!mic || !analyser) return;
  analyser.update();
 
-//put this in a function?
+//controls the transparency of the colours
  bgColor.setAlpha(255 * (window.sliderThreeValue));
  //window.sliderThreeValue
  //mouseX/width
 
-
  if (playing) {
+   //using ToneJS to analyse different levels of the audio to use as parameters of control in the drawing
    const bass = analyser.getEnergy(20, 150);
    const basslevel = map(bass, -100, -30, 0, 100, true);
 
@@ -103,8 +103,8 @@ function pattern(thickness, diameter = 0.25) {
    const midlevel = map(mid, -100, -30, 0, 100, true);
 
    let dim = min(width, height);
-   blendMode(BLEND);
    const time = millis() / 1000;
+   blendMode(BLEND);
 
    xoff = xoff + 0.01;
    let n = noise(xoff) * width;
@@ -176,7 +176,7 @@ function drawColumns(x, y, radius, sides = 3, angle = 0, thickness) {
 function drawTile(sx, sy, diameter) {
   xoff = xoff + 0.0001;
   let n = noise(xoff) * width;
-  const frequency = 0.1 * n * 0.00001;
+  const frequency = 0.1 * n * 0.000001;
   noStroke();
   fill("fff");
   circleSize = dim * diameter;
@@ -188,7 +188,6 @@ function drawColumn(sx, sy, ex, ey, thickness) {
   const dim = min(width, height);
   noFill();
   strokeCap(SQUARE);
-  // parameter to play with
   strokeWeight(thickness / dim * 100);
   stroke("#fff");
   line(sx, sy, ex, ey);

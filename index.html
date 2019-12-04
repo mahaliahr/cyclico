@@ -6,20 +6,6 @@
     body {
       padding: 0;
       margin: 0;
-
-      #slider{
-        -webkit-appearance: none;  /* Override default CSS styles */
-        appearance: none;
-        width: 100%; /* Full-width */
-        height: 25px; /* Specified height */
-        background: #d3d3d3; /* Grey background */
-        outline: none; /* Remove outline */
-        opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-        -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-        transition: opacity .2s;
-}
-
-
       }
     }
     </style>
@@ -33,7 +19,8 @@
     <script src="sketch.js"></script>
   </head>
   <body>
-    <input
+    <div id="sliderbar">
+      <input
       id="sliderOne"
       class="sliders"
       oninput="sliderOneChange(sliderOne)"
@@ -48,7 +35,7 @@
       class="sliders"
       oninput="sliderTwoChange(sliderTwo)"
       type="range"
-      min="0.01"
+      min="0"
       max="1"
       value="0.01"
       step="0.01"
@@ -64,11 +51,20 @@
       step="0.01"
     />
     <button id="button" type="button">Colour</button>
-    <style type="text/css">
+    <span>kaleidos.co</span>
+  </div>
+  <style type="text/css">
+  span {
+    font-family: Helvetica, sans-serif;
+  }
+  #sliderbar {
+    background: #FFFFFF;
+    padding:20px;
+  }
   input.sliders {
   -webkit-appearance: none;
   /* width: 100%; */
-  height: 25px;
+  height: 15px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
@@ -84,23 +80,19 @@ input.sliders::-webkit-slider-thumb {
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #4CAF50;
+  background: #4A5153;
   cursor: pointer;
 }
-
 input.sliders::-moz-range-thumb {
   width: 25px;
   height: 25px;
-  background: #4CAF50;
+  background: #4A5153;
   cursor: pointer;
 }
     </style>
     <script>
-
     const sliderOne = window.sliderOne;
-
     const sliderTwo = window.sliderTwo;
-
     const sliderThree = window.sliderThree;
     const button = window.button;
     button.addEventListener("click", buttonPress);
