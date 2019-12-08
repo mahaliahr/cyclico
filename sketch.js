@@ -231,7 +231,7 @@ function drawColumns(x, y, radius, sides = 3, angle = 0, thickness) {
 function drawTile(sx, sy, diameter) {
   xoff = xoff + 0.0001;
   let n = noise(xoff) * width;
-  const frequency = 0.1 * n * 0.000001;
+  const frequency = 0.01 * n * 0.000001;
   noStroke();
   fill(color(255, 255, 255));
   circleSize = dim * diameter;
