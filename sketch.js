@@ -35,6 +35,7 @@ function setup() {
   bgColor = color(255, 255, 255, 255);
   dim = min(width, height);
 
+  // initialises sliders at some default values
   sliderOneChange(3);
   sliderTwoChange(12);
   sliderThreeChange(0.05);
@@ -48,8 +49,8 @@ function windowResized() {
 }
 
 function draw() {
+  // controls the display of the intro text
   if (ready == 0) {
-    // console.log('fds');
     showText();
   } else if (ready == 1) {
     //do nothing and wait
@@ -64,28 +65,31 @@ function draw() {
   }
 }
 
-// These control updating of default value of slider, based on user input
-function sliderOneChange(slider) {
+// These control the updating value of sliders, based on user input
+function sliderOneChange() {
   window.sliderOneValue = sliderOne.value;
 }
 
-function sliderTwoChange(slider) {
+function sliderTwoChange() {
   window.sliderTwoValue = sliderTwo.value;
 }
 
-function sliderThreeChange(slider) {
+function sliderThreeChange() {
   window.sliderThreeValue = sliderThree.value;
   console.log(sliderThreeValue);
 }
 
-function sliderFourChange(slider) {
+function sliderFourChange() {
   window.sliderFourValue = sliderFour.value;
 }
-
+// colour button press - changes to an array of colours
 function buttonOnePress() {
   if (buttonOnePress) {
     console.log("button pressed");
     colours = [
+      color(126, 25, 70),
+      color(42, 68, 148),
+      color(178, 211, 168),
       color(169, 210, 213),
       color(70, 35, 122),
       color(41, 255, 184),
@@ -97,7 +101,7 @@ function buttonOnePress() {
     bgColor = random(colours);
   }
 }
-
+// monochrome button press - resets to the default monochrome state
 function buttonTwoPress() {
   if (buttonTwoPress) {
     console.log("button pressed");
