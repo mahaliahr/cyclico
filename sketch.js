@@ -10,10 +10,12 @@ let circleSize;
 let thickness;
 let ready;
 let myFont;
+
 // Create a new canvas to the browser size
 function setup() {
+  // set flag for splashs creen display
   ready = 0;
-
+  // if mic already active discard
   if (mic) {
     mic.dispose();
     mic = null;
@@ -22,16 +24,15 @@ function setup() {
 
     mic.open();
     console.log("opened microphone", mic.label);
-
+    // create an analyser node
     analyser = new AudioEnergy();
     analyser.smoothing = 0.75;
-
+    // connect mic to analyser & master
     mic.connect(analyser);
     mic.connect(Tone.Master);
   }
 
   createCanvas(windowWidth, windowHeight);
-  console.log(createCanvas);
   bgColor = color(255, 255, 255, 255);
   dim = min(width, height);
 
@@ -49,7 +50,7 @@ function windowResized() {
 }
 
 function draw() {
-  // controls the display of the intro text
+  // controls the display of the splash screen
   if (ready == 0) {
     showText();
   } else if (ready == 1) {
@@ -82,6 +83,7 @@ function sliderThreeChange() {
 function sliderFourChange() {
   window.sliderFourValue = sliderFour.value;
 }
+
 // colour button press - changes to an array of colours
 function buttonOnePress() {
   if (buttonOnePress) {
@@ -101,6 +103,7 @@ function buttonOnePress() {
     bgColor = random(colours);
   }
 }
+
 // monochrome button press - resets to the default monochrome state
 function buttonTwoPress() {
   if (buttonTwoPress) {
@@ -110,6 +113,7 @@ function buttonTwoPress() {
   }
 }
 
+// load custom font
 function loadFont() {
   myFont = WebFont.load({
     google: {
@@ -118,6 +122,7 @@ function loadFont() {
   });
 }
 
+// draw splash screen
 function showText() {
   push();
   blendMode(BLEND);
@@ -145,17 +150,15 @@ function pattern(thickness, numberOfColumns = 100, diameter = 0.25, alpha) {
     //using ToneJS to analyse different levels of the audio to use as parameters of control in the drawing
     const bass = analyser.getEnergy(20, 150);
     const basslevel = map(bass, -100, -30, 0, 100, true);
-
     const highmid = analyser.getEnergy(2600, 5200);
     const highmidlevel = map(highmid, -100, -30, 0, 100, true);
-
     const mid = analyser.getEnergy(400, 2600);
     const midlevel = map(mid, -100, -30, 0, 100, true);
 
     let dim = min(width, height);
     const time = millis() / 1000;
     blendMode(BLEND);
-
+    // augment circle position using noise
     xoff = xoff + 0.01;
     let n = noise(xoff) * width;
     const frequency = 0.1 * n * 0.001;
@@ -164,7 +167,7 @@ function pattern(thickness, numberOfColumns = 100, diameter = 0.25, alpha) {
 
     background(bgColor);
     blendMode(DIFFERENCE);
-
+    // draw 3 rings of circles
     drawEachTile(
       width / 2,
       height / 2,
@@ -191,7 +194,7 @@ function pattern(thickness, numberOfColumns = 100, diameter = 0.25, alpha) {
       time * 0.5,
       diameter
     );
-
+    // draw ring of columns
     drawColumns(
       width / 2,
       height / 2,
@@ -203,7 +206,7 @@ function pattern(thickness, numberOfColumns = 100, diameter = 0.25, alpha) {
   }
 }
 
-// Creates circle of circles
+// Creates ring of circles
 function drawEachTile(x, y, radius, sides = 3, angle = 0, diameter) {
   for (let i = 0; i < sides; i++) {
     const a = angle + TWO_PI * (i / sides);
@@ -214,7 +217,7 @@ function drawEachTile(x, y, radius, sides = 3, angle = 0, diameter) {
     }
   }
 }
-// Creates circle of columns
+// Creates ring of columns
 function drawColumns(x, y, radius, sides = 3, angle = 0, thickness) {
   for (let i = 0; i < sides; i++) {
     const a = angle + TWO_PI * (i / sides);
@@ -250,6 +253,6 @@ function drawColumn(sx, sy, ex, ey, thickness) {
 
 function mousePressed() {
   Tone.start();
-
+  // once clicked remove splash screen
   ready = 2;
 }

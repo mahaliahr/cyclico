@@ -1,152 +1,189 @@
 <html>
+  <head>
+    <title>sketch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Overpass&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+    <script src="https://unpkg.com/tone@13.8.25/build/Tone.js"></script>
+    <script src="AudioEnergy.js"></script>
+    <script src="sketch.js"></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      }
+    </style>
+  </head>
 
-<head>
-  <title>sketch</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Overpass&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
-  <script src="https://unpkg.com/tone@13.8.25/build/Tone.js"></script>
-  <script src="AudioEnergy.js"></script>
-  <script src="sketch.js"></script>
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-    }
-    }
-  </style>
-</head>
-
-<body>
-  <div id="controlbar">
-    <span>cyclico</span>
-    <div id="controls">
-      <input id="sliderOne" class="sliders" oninput="sliderOneChange(sliderOne)" type="range" min="0" max="100" value="3" step="0.1" />
-      <input id="sliderTwo" class="sliders" oninput="sliderTwoChange(sliderTwo)" type="range" min="0" max="100" value="12" step="12" />
-      <input id="sliderThree" class="sliders" oninput="sliderThreeChange(sliderThree)" type="range" min="0" max="1.5" value="0.05" step="0.01" />
-      <input id="sliderFour" class="sliders" oninput="sliderFourChange(sliderFour)" type="range" min="0" max="255" value="255" step="1" />
+  <body>
+    <div id="controlbar">
+      <span>cyclico</span>
+      <div id="controls">
+        <input
+          id="sliderOne"
+          class="sliders"
+          oninput="sliderOneChange(sliderOne)"
+          type="range"
+          min="0"
+          max="100"
+          value="3"
+          step="0.1"
+        />
+        <input
+          id="sliderTwo"
+          class="sliders"
+          oninput="sliderTwoChange(sliderTwo)"
+          type="range"
+          min="0"
+          max="100"
+          value="12"
+          step="12"
+        />
+        <input
+          id="sliderThree"
+          class="sliders"
+          oninput="sliderThreeChange(sliderThree)"
+          type="range"
+          min="0"
+          max="1.5"
+          value="0.05"
+          step="0.01"
+        />
+        <input
+          id="sliderFour"
+          class="sliders"
+          oninput="sliderFourChange(sliderFour)"
+          type="range"
+          min="0"
+          max="255"
+          value="255"
+          step="1"
+        />
+      </div>
+      <div id="buttons">
+        <button id="buttonOne" type="button">
+          <font size="2">
+            <font color="#ff0000">&#9679;</font>
+            <font color="#00ff00">&#9679;</font>
+            <font color="#0000ff">&#9679;</font>
+          </font>
+        </button>
+        <button id="buttonTwo" type="button">
+          <font size="2">
+            <font color="#000000">&#9679;</font>
+          </font>
+        </button>
+      </div>
     </div>
-    <div id="buttons">
-      <button id="buttonOne" type="button">
-        <font size="2">
-          <font color="#ff0000">&#9679;</font>
-          <font color="#00ff00">&#9679;</font>
-          <font color="#0000ff">&#9679;</font>
-        </font>
-      </button>
-      <button id="buttonTwo" type="button">
-        <font size="2">
-          <font color="#000000">&#9679;</font>
-        </font>
-      </button>
-    </div>
-  </div>
-  <style type="text/css">
-    html {
-      min-height: 100%;
-    }
+    <style type="text/css">
+      html {
+        min-height: 100%;
+      }
 
-    body {
-      font-family: 'Overpass', Helvetica, sans-serif;
-      min-height: 100%;
-    }
+      body {
+        font-family: "Overpass", Helvetica, sans-serif;
+        min-height: 100%;
+      }
 
-    #controlBar {
-      /* background: #EFEFEF; */
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 96%;
-      z-index: 10;
-      padding: 2%;
-      opacity: 0.8;
-    }
+      #controlBar {
+        /* background: #EFEFEF; */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 96%;
+        z-index: 10;
+        padding: 2%;
+        opacity: 0.8;
+      }
 
-    span {
-      position: absolute;
-      font-size: 120%;
-      float: left;
-      top: 20%;
-      color: #efefef;
-    }
+      span {
+        position: absolute;
+        font-size: 120%;
+        float: left;
+        top: 20%;
+        color: #efefef;
+      }
 
-    #buttons {
-      position: absolute;
-      top: 20%;
-      right: 1%;
-    }
-    
-    #buttonOne:hover {
-      background: #d3d3d3;
-    }
-    
-     #buttonTwo:hover {
-      background: #d3d3d3;
-    }
+      #buttons {
+        position: absolute;
+        top: 20%;
+        right: 1%;
+      }
 
-    #controls {
-      position: absolute;
-      float: left;
-      top: 25%;
-      right: 8%;
-      z-index: 20;
-    }
+      #buttonOne:hover {
+        background: #d3d3d3;
+      }
 
-    #buttonOne {
-      border: none;
-      outline: none;
-      border-radius: 12px;
-    }
+      #buttonTwo:hover {
+        background: #d3d3d3;
+      }
 
-    #buttonTwo {
-      border: none;
-      outline: none;
-      border-radius: 12px;
-    }
+      #controls {
+        position: absolute;
+        float: left;
+        top: 25%;
+        right: 8%;
+        z-index: 20;
+      }
 
-    input.sliders {
-      -webkit-appearance: none;
-      height: 15px;
-      border-radius: 15px;
-      background: #d3d3d3;
-      outline: none;
-      opacity: 1;
-      -webkit-transition: .2s;
-      transition: opacity .2s;
-    }
+      #buttonOne {
+        border: none;
+        outline: none;
+        border-radius: 12px;
+      }
 
-    input.sliders:hover {
-      opacity: 1;
-    }
+      #buttonTwo {
+        border: none;
+        outline: none;
+        border-radius: 12px;
+      }
 
-    input.sliders::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 15px;
-      height: 15px;
-      border-radius: 15px;
-      background: #4A5153;
-      cursor: pointer;
-    }
+      input.sliders {
+        -webkit-appearance: none;
+        height: 15px;
+        border-radius: 15px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 1;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+      }
 
-    input.sliders::-moz-range-thumb {
-      width: 15px;
-      height: 15px;
-      border-radius: 15px;
-      background: #4A5153;
-      cursor: pointer;
-    }
-  </style>
-  <script>
-    let sliderOne = window.sliderOne;
-    let sliderTwo = window.sliderTwo;
-    let sliderThree = window.sliderThree;
-    let sliderFour = window.sliderFour;
-    const buttonColour = window.buttonOne;
-    const buttonMonochrome = window.buttonTwo;
-    buttonOne.addEventListener("click", buttonOnePress);
-    buttonTwo.addEventListener("click", buttonTwoPress);
-  </script>
-</body>
+      input.sliders:hover {
+        opacity: 1;
+      }
 
+      input.sliders::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        background: #4A5153;
+        cursor: pointer;
+      }
+
+      input.sliders::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        background: #4A5153;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      let sliderOne = window.sliderOne;
+      let sliderTwo = window.sliderTwo;
+      let sliderThree = window.sliderThree;
+      let sliderFour = window.sliderFour;
+      const buttonColour = window.buttonOne;
+      const buttonMonochrome = window.buttonTwo;
+      buttonOne.addEventListener("click", buttonOnePress);
+      buttonTwo.addEventListener("click", buttonTwoPress);
+    </script>
+  </body>
 </html>
