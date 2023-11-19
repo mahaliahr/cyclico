@@ -60,7 +60,7 @@ function draw() {
     pattern(
       window.sliderOneValue * 10,
       window.sliderTwoValue * 10,
-      window.sliderThreeValue / 2,
+      window.sliderThreeValue / 4,
       window.sliderFourValue
     );
   }
@@ -137,7 +137,7 @@ function showText() {
 }
 
 // This function creates the overall audio generated patterns
-function pattern(thickness, numberOfColumns = 100, diameter = 0.25, alpha) {
+function pattern(thickness, numberOfColumns = 100, diameter = 0.5, alpha) {
   if (!mic || !analyser) {
     return;
   }
@@ -201,7 +201,7 @@ function pattern(thickness, numberOfColumns = 100, diameter = 0.25, alpha) {
       basslevel * 2,
       numberOfColumns,
       time * 0.2,
-      thickness
+      thickness/basslevel*20
     );
   }
 }
@@ -213,7 +213,7 @@ function drawEachTile(x, y, radius, sides = 3, angle = 0, diameter) {
     let sx = x + cos(a) * radius;
     let sy = y + sin(a) * radius;
     if (i % 10 == 0) {
-      drawTile(sx, sy, diameter);
+      drawTile(sx, sy, diameter/2);
     }
   }
 }
